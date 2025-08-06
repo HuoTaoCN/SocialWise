@@ -358,4 +358,28 @@ function sendTextMessage() {
 
 function askQuestion(question) {
     if (app) {
-        app
+        app.askQuestion(question);
+    }
+}
+
+// 页面加载完成后初始化应用
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📱 页面加载完成，初始化应用...');
+    app = new SocialWiseApp();
+    
+    // 添加快捷问题按钮事件
+    const quickButtons = document.querySelectorAll('.quick-question');
+    quickButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const question = this.textContent;
+            askQuestion(question);
+        });
+    });
+    
+    console.log('🎉 SocialWise 应用初始化完成！');
+});
+
+// 导出供其他模块使用
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { SocialWiseApp };
+}
