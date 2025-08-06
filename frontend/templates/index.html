@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社保智答 / SocialWise - 智能社保助手</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部Logo区域 -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- 麦克风图标 -->
+                        <path d="M24 32C27.3137 32 30 29.3137 30 26V14C30 10.6863 27.3137 8 24 8C20.6863 8 18 10.6863 18 14V26C18 29.3137 20.6863 32 24 32Z" fill="#007BFF"/>
+                        <!-- 盾牌图标 -->
+                        <path d="M24 4L32 8V20C32 28 24 36 24 36C24 36 16 28 16 20V8L24 4Z" fill="#28A745" fill-opacity="0.8"/>
+                        <!-- 麦克风底座 -->
+                        <path d="M12 26C12 32.6274 17.3726 38 24 38C30.6274 38 36 32.6274 36 26H33C33 30.9706 28.9706 35 24 35C19.0294 35 15 30.9706 15 26H12Z" fill="#007BFF"/>
+                        <rect x="22" y="38" width="4" height="6" fill="#007BFF"/>
+                        <rect x="18" y="42" width="12" height="2" fill="#007BFF"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1 class="logo-title">
+                        <span class="chinese">社保智答</span>
+                        <span class="divider">/</span>
+                        <span class="english">SocialWise</span>
+                    </h1>
+                    <p class="logo-subtitle">智能社保助手</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要交互区域 -->
+        <main class="main-content">
+            <!-- 对话显示区域 -->
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="welcome-message">
+                        <div class="bot-avatar">🤖</div>
+                        <div class="message-content">
+                            <p>您好！我是社保智答助手，可以为您解答社会保障和福利服务相关问题。</p>
+                            <p>您可以点击下方麦克风按钮说话，或者直接输入文字提问。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 输入控制区域 -->
+            <div class="input-container">
+                <!-- 语音输入 -->
+                <div class="voice-input">
+                    <button class="mic-button" id="micButton" title="点击开始语音输入">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 16C13.6569 16 15 14.6569 15 13V7C15 5.34315 13.6569 4 12 4C10.3431 4 9 5.34315 9 7V13C9 14.6569 10.3431 16 12 16Z" fill="currentColor"/>
+                            <path d="M6 13C6 16.3137 8.68629 19 12 19C15.3137 19 18 16.3137 18 13H16.5C16.5 15.4853 14.4853 17.5 12 17.5C9.51472 17.5 7.5 15.4853 7.5 13H6Z" fill="currentColor"/>
+                            <path d="M11 21V19H13V21H11Z" fill="currentColor"/>
+                            <path d="M9 22H15V23H9V22Z" fill="currentColor"/>
+                        </svg>
+                        <span class="mic-text">点击说话</span>
+                    </button>
+                    <div class="recording-indicator" id="recordingIndicator">
+                        <div class="pulse"></div>
+                        <span>正在录音...</span>
+                    </div>
+                </div>
+
+                <!-- 文字输入 -->
+                <div class="text-input">
+                    <div class="input-group">
+                        <input type="text" id="textInput" placeholder="请输入您的问题..." maxlength="500">
+                        <button class="send-button" id="sendButton" title="发送">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 10L18 2L12 10L18 18L2 10Z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 状态指示器 -->
+            <div class="status-indicator" id="statusIndicator">
+                <div class="status-dot"></div>
+                <span class="status-text">准备就绪</span>
+            </div>
+        </main>
+
+        <!-- 底部信息 -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="slogan">社保智答，语音智慧，保障无忧！</p>
+                <div class="footer-links">
+                    <a href="#" onclick="showHelp()">使用帮助</a>
+                    <a href="#" onclick="showFeedback()">意见反馈</a>
+                    <a href="#" onclick="showPrivacy()">隐私政策</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 帮助弹窗 -->
+    <div class="modal" id="helpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>使用帮助</h3>
+                <button class="close-button" onclick="closeModal('helpModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4>语音输入</h4>
+                <p>点击麦克风按钮，开始语音输入。支持中文普通话和常见方言。</p>
+                
+                <h4>文字输入</h4>
+                <p>在输入框中直接输入问题，点击发送按钮或按回车键提交。</p>
+                
+                <h4>常见问题</h4>
+                <ul>
+                    <li>社保余额查询</li>
+                    <li>医保报销流程</li>
+                    <li>养老保险缴费</li>
+                    <li>失业保险申请</li>
+                    <li>工伤保险理赔</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 反馈弹窗 -->
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>意见反馈</h3>
+                <button class="close-button" onclick="closeModal('feedbackModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <label>服务评分：</label>
+                        <div class="rating">
+                            <span class="star" data-rating="1">⭐</span>
+                            <span class="star" data-rating="2">⭐</span>
+                            <span class="star" data-rating="3">⭐</span>
+                            <span class="star" data-rating="4">⭐</span>
+                            <span class="star" data-rating="5">⭐</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedbackText">意见建议：</label>
+                        <textarea id="feedbackText" rows="4" placeholder="请输入您的意见和建议..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" onclick="closeModal('feedbackModal')">取消</button>
+                        <button type="submit">提交反馈</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载WebRTC适配器 -->
+    <script src="https://cdn.jsdelivr.net/npm/webrtc-adapter@8.2.3/out/adapter.js"></script>
+    <!-- 主要JavaScript -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
